@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'master' }
     environment {
         IMAGE_NAME = 'raja250/practice/app'
         GKE_CLUSTER = 'cluster-1'
@@ -12,6 +12,7 @@ pipeline {
                 checkout scm
             }
         }
+        
         stage('Build Docker Image') {
             steps {
                 script {
@@ -19,16 +20,7 @@ pipeline {
                 }
             }
         }
-       pipeline {
-    agent any
 
-    environment {
-        IMAGE_NAME = 'your-image-name' // Add your Docker image name here
-        GKE_CLUSTER = 'your-gke-cluster' // Specify your GKE cluster
-        GKE_ZONE = 'your-gke-zone' // Specify your GKE zone
-    }
-
-    stages {
         stage('Push to Docker Hub') {
             steps {
                 script {
@@ -59,4 +51,3 @@ pipeline {
         }
     }
 }
-                }
